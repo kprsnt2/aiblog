@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Sparkles, User, Lock, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 
 export default function Login() {
     const router = useRouter();
@@ -51,59 +54,63 @@ export default function Login() {
                     <p className="text-slate-400 mt-2">Sign in to manage your AI generated blogs</p>
                 </div>
 
-                <div className="glass-panel p-8">
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {error && (
-                            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg text-sm text-center">
-                                {error}
+                <Card className="bg-slate-900/50 backdrop-blur-xl border-white/10 shadow-2xl">
+                    <CardContent className="pt-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {error && (
+                                <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg text-sm text-center">
+                                    {error}
+                                </div>
+                            )}
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 ml-1">Username</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                    <Input
+                                        type="text"
+                                        required
+                                        className="pl-10 bg-slate-950/50 border-white/10"
+                                        placeholder="Enter your username"
+                                        value={username}
+                                        onChange={e => setUsername(e.target.value)}
+                                        disabled={loading}
+                                    />
+                                </div>
                             </div>
-                        )}
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 ml-1">Username</label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                                <input
-                                    type="text"
-                                    required
-                                    className="input-field pl-10"
-                                    placeholder="Enter your username"
-                                    value={username}
-                                    onChange={e => setUsername(e.target.value)}
-                                    disabled={loading}
-                                />
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
+                                <div className="relative">
+                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                    <Input
+                                        type="password"
+                                        required
+                                        className="pl-10 bg-slate-950/50 border-white/10"
+                                        placeholder="••••••••"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        disabled={loading}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                                <input
-                                    type="password"
-                                    required
-                                    className="input-field pl-10"
-                                    placeholder="••••••••"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                    disabled={loading}
-                                />
-                            </div>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="primary-btn w-full flex justify-center items-center gap-2 mt-4"
-                            disabled={loading}
-                        >
-                            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Sign In'}
-                        </button>
-                    </form>
-
-                    <p className="text-center text-sm text-slate-400 mt-6">
-                        Don't have an account? <Link href="/register" className="text-blue-400 hover:text-blue-300 font-medium">Create one</Link>
-                    </p>
-                </div>
+                            <Button
+                                type="submit"
+                                className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 shadow-lg shadow-blue-500/25 mt-4"
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="animate-spin mr-2" size={18} /> : null}
+                                Sign In
+                            </Button>
+                        </form>
+                    </CardContent>
+                    <CardFooter className="justify-center border-t border-white/5 pt-6">
+                        <p className="text-center text-sm text-slate-400">
+                            Don't have an account? <Link href="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">Create one</Link>
+                        </p>
+                    </CardFooter>
+                </Card>
             </div>
         </div>
     );
