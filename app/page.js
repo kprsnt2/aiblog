@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Image as ImageIcon, Video } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata = {
     title: 'AIBlog | Next-Gen AI Blogging Platform',
@@ -14,12 +16,12 @@ export default function Home() {
                     <Sparkles className="text-blue-400" size={24} /> AIBlog
                 </div>
                 <div className="flex gap-4">
-                    <Link href="/login" className="px-5 py-2 rounded-full font-medium hover:bg-white/5 transition-colors">
-                        Log In
-                    </Link>
-                    <Link href="/register" className="primary-btn px-6 py-2">
-                        Get Started
-                    </Link>
+                    <Button variant="ghost" asChild className="rounded-full">
+                        <Link href="/login">Log In</Link>
+                    </Button>
+                    <Button asChild className="rounded-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 shadow-lg shadow-blue-500/25">
+                        <Link href="/register">Get Started</Link>
+                    </Button>
                 </div>
             </header>
 
@@ -40,12 +42,16 @@ export default function Home() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-                        <Link href="/register" className="primary-btn text-lg px-8 py-4 flex items-center gap-2">
-                            Start Creating for Free <ArrowRight size={20} />
-                        </Link>
-                        <Link href="#features" className="px-8 py-4 text-slate-300 hover:text-white transition-colors">
-                            See how it works
-                        </Link>
+                        <Button size="lg" asChild className="rounded-full text-base px-8 h-14 bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 shadow-xl shadow-blue-500/25 transition-all hover:scale-105">
+                            <Link href="/register">
+                                Start Creating for Free <ArrowRight className="ml-2 h-5 w-5" />
+                            </Link>
+                        </Button>
+                        <Button variant="ghost" size="lg" asChild className="rounded-full text-base px-8 h-14 text-slate-300 hover:text-white transition-colors">
+                            <Link href="#features">
+                                See how it works
+                            </Link>
+                        </Button>
                     </div>
                 </div>
 
@@ -73,12 +79,18 @@ export default function Home() {
 
 function FeatureCard({ icon, title, description }) {
     return (
-        <div className="glass-panel p-8 hover:bg-white/[0.03] transition-colors group">
-            <div className="transform group-hover:scale-110 transition-transform duration-300 origin-left">
-                {icon}
-            </div>
-            <h3 className="text-xl font-semibold mb-3">{title}</h3>
-            <p className="text-slate-400 leading-relaxed">{description}</p>
-        </div>
+        <Card className="bg-slate-900/50 backdrop-blur-xl border-white/10 hover:bg-slate-900/80 transition-all duration-300 group hover:-translate-y-1">
+            <CardHeader>
+                <div className="transform group-hover:scale-110 transition-transform duration-300 origin-left mb-2">
+                    {icon}
+                </div>
+                <CardTitle className="text-xl">{title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <CardDescription className="text-slate-400 text-base leading-relaxed">
+                    {description}
+                </CardDescription>
+            </CardContent>
+        </Card>
     );
 }
